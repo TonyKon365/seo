@@ -32,7 +32,6 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDate;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Permission;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\HTML;
@@ -42,6 +41,7 @@ use SilverStripers\SEO\Fields\SEOEditor;
 use SilverStripers\SEO\Model\MetaTitleTemplate;
 use SilverStripers\SEO\Model\Variable;
 use Spatie\SchemaOrg\BaseType;
+use SilverStripe\Core\Validation\ValidationResult;
 
 /**
  * Class SEODataExtension
@@ -384,7 +384,7 @@ class SEODataExtension extends Extension
             $tags = array_map(function ($tag) {
                 return is_array($tag) ? '' : (string)$tag;
             }, $tags);
-        
+
             $tags = implode("\n", array_filter($tags));
         }
         $tags = Variable::process_varialbes($tags);
@@ -480,7 +480,7 @@ class SEODataExtension extends Extension
 				$items = self::get_duplicates_list($duplicates);
 				$result->addFieldError('FocusKeyword', sprintf(_t(__CLASS__.'.FocusKeywordIsNotUnique',
 					'This keyword is not unique. It is also used by \'%s\''), $items),
-					ValidationResult::TYPE_ERROR, null, ValidationResult::CAST_HTML);
+					ValidationResult::TYPE_ERROR, '', ValidationResult::CAST_HTML);
 			}
 			if ($result->isValid()) {
 				$result->addFieldMessage('FocusKeyword', _t(__CLASS__.'.FocusKeywordPassed',
@@ -529,7 +529,7 @@ class SEODataExtension extends Extension
 				$result->addFieldError('MetaTitle',
 					sprintf(_t(__CLASS__.'.MetaTitleDuplicated',
 						'This title is not unique. It is also used by %s'), $items),
-					ValidationResult::TYPE_ERROR, null, ValidationResult::CAST_HTML);
+					ValidationResult::TYPE_ERROR, '', ValidationResult::CAST_HTML);
 			} else {
 				$result->addFieldMessage('MetaTitle',
 					_t(__CLASS__.'.MetaTitleUnique',
@@ -578,7 +578,7 @@ class SEODataExtension extends Extension
 				$items = self::get_duplicates_list($duplicates);
 				$result->addFieldError('MetaDescription',
 					sprintf(_t(__CLASS__.'.MetaDescriptionGoodLength', 'This description is not unique. It is also used by %s'), $items),
-					ValidationResult::TYPE_ERROR, null, ValidationResult::CAST_HTML);
+					ValidationResult::TYPE_ERROR, '', ValidationResult::CAST_HTML);
 			} else {
 				$result->addFieldMessage('MetaDescription',
 					_t(__CLASS__.'.MetaDescriptionUnique', 'This description is unique to this page'),
