@@ -26,7 +26,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\i18n\i18n;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDate;
@@ -50,7 +50,7 @@ use Spatie\SchemaOrg\BaseType;
  * @property DataObject $owner
  * @method MetaTitleTemplate MetaTitleTemplate
  */
-class SEODataExtension extends DataExtension
+class SEODataExtension extends Extension
 {
 
     use Configurable;
