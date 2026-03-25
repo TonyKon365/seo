@@ -381,7 +381,11 @@ class SEODataExtension extends Extension
     {
         $tags = $this->MetaTagCollection();
         if (is_array($tags)) {
-            $tags = implode("\n", $tags);
+            $tags = array_map(function ($tag) {
+                return is_array($tag) ? '' : (string)$tag;
+            }, $tags);
+        
+            $tags = implode("\n", array_filter($tags));
         }
         $tags = Variable::process_varialbes($tags);
         if ($structuredData = $this->StructuredData()) {
